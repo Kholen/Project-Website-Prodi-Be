@@ -11,21 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dosens', function (Blueprint $table) {
-            $table->id();
-            $table->integer('NUPTK',);
-            $table->bigInteger('location_id');
-            $table->string('nama',50);
-            $table->timestamps();
-        });
+        Schema::dropIfExists('locations');
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('dosens');
+        Schema::create('locations', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->timestamps();
+        });
     }
 };
