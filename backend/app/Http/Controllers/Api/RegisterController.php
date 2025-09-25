@@ -22,7 +22,7 @@ class RegisterController extends Controller
             'name'      => 'required',
             'username'  => 'required|unique:users',
             'email'     => 'required|email|unique:users',
-            'password'  => 'required|min:8|'
+            'password'  => 'required|min:8'
         ]);
 
         //if validation fails
@@ -35,7 +35,7 @@ class RegisterController extends Controller
             'name'      => $request->name,
             'username'  => $request->username,
             'email'     => $request->email,
-            'password'  => $request->password
+            'password'  => bcrypt($request->password)
         ]);
 
         //return response JSON user is created
