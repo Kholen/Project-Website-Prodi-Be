@@ -3,11 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use App\Models\Location;
 
 class dosen extends Model
 {
@@ -33,9 +29,9 @@ class dosen extends Model
         return $this->belongsToMany(Prodi::class, 'dosen_prodis');
     }
 
-
-    public function imageUrl(): HasOne
+    public function imageUrl(): BelongsToMany
     {
-        return $this->hasOne(ImageUrl::class);
+        return $this->belongsToMany(ImageUrl::class, 'dosen_images', 'dosen_id', 'image_id');
     }
 }
+

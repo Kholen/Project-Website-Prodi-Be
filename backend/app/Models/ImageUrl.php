@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ImageUrl extends Model
 {
@@ -14,11 +14,11 @@ class ImageUrl extends Model
 
     protected $fillable = [
         'url',
-        'dosen_id',
     ];
 
-    public function dosen(): BelongsTo
+    public function dosens(): BelongsToMany
     {
-        return $this->belongsTo(dosen::class);
+        return $this->belongsToMany(dosen::class, 'dosen_images', 'image_id', 'dosen_id');
     }
 }
+
