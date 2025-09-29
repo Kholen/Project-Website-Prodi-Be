@@ -33,10 +33,6 @@ class dosen extends Model
         return $this->belongsToMany(Prodi::class, 'dosen_prodis');
     }
 
-    public function location(): BelongsTo
-    {
-        return $this->belongsTo(Location::class);
-    }
 
     public function imageUrl(): HasOne
     {

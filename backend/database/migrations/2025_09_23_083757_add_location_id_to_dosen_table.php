@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,10 +12,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('dosens', function (Blueprint $table) {
-            $table->unsignedBigInteger('location_id')->nullable()->after('NUPTK');
-            $table->foreign('location_id')->references('id')->on('locations')->onDelete('set null');
-        });
+        if (Schema::hasColumn('dosens', 'location_id')) {
+            DB::statement('ALTER TABLE dosens DROP COLUMN location_id');
+        }
+
+        if (! Schema::hasColumn('dosens', 'kontak')) {
+            Schema::table('dosens', function (Blueprint $table) {
+                $table->string('kontak')->nullable();
+            });
+        }
     }
 
     /**
@@ -22,9 +28,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('dosens', function (Blueprint $table) {
-            $table->dropForeign(['location_id']);
-            $table->dropColumn('location_id');
-        });
+        if (! Schema::hasColumn('dosens', 'location_id')) {
+            Schema::table('dosens', function (Blueprint $table) {
+                $table->unsignedBigInteger('location_id')->nullable()->after('NUPTK');
+            });
+        }
     }
 };

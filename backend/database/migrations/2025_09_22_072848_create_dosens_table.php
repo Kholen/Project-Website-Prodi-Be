@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->id();
-            $table->integer('NUPTK',);
-            $table->bigInteger('location_id');
-            $table->string('nama',50);
+            $table->string('NUPTK');
+            $table->string('kontak')->nullable();
+            $table->string('nama', 50);
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.

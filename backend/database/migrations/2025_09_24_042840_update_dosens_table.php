@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('dosens', function (Blueprint $table) {
-            $table->string('NUPTK')->change();
-            $table->renameColumn('location_id', 'kontak');
-        });
+        if (Schema::hasColumn('dosens', 'NUPTK')) {
+            DB::statement('ALTER TABLE dosens MODIFY NUPTK VARCHAR(255)');
+        }
 
-        Schema::table('dosens', function (Blueprint $table) {
-            $table->string('kontak')->change();
-        });
+        if (Schema::hasColumn('dosens', 'location_id') && ! Schema::hasColumn('dosens', 'kontak')) {
+            DB::statement('ALTER TABLE dosens CHANGE location_id kontak VARCHAR(255) NULL');
+        }
+
+        if (! Schema::hasColumn('dosens', 'kontak')) {
+            DB::statement('ALTER TABLE dosens ADD COLUMN kontak VARCHAR(255) NULL');
+        }
     }
 
     /**
@@ -26,13 +29,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('dosens', function (Blueprint $table) {
-            $table->integer('NUPTK')->change();
-            $table->renameColumn('kontak', 'location_id');
-        });
+        if (Schema::hasColumn('dosens', 'kontak') && ! Schema::hasColumn('dosens', 'location_id')) {
+            DB::statement('ALTER TABLE dosens CHANGE kontak location_id BIGINT');
+        }
 
-        Schema::table('dosens', function (Blueprint $table) {
-            $table->bigInteger('location_id')->change();
-        });
+        if (Schema::hasColumn('dosens', 'NUPTK')) {
+            DB::statement('ALTER TABLE dosens MODIFY NUPTK INTEGER');
+        }
     }
 };
