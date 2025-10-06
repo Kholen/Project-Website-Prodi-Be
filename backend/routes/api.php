@@ -34,9 +34,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * @method "GET"
  */
 Route::get('/kerjasama', App\Http\Controllers\Api\KerjasamaProdiController::class . '@index')->name('kerjasama.index');
-
-/**
- * route "/riset"
- * @method "GET"
- */
-Route::get('/riset', App\Http\Controllers\Api\RisetController::class . '@index')->name('riset.index');
