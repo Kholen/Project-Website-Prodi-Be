@@ -12,6 +12,6 @@ class Jabatan extends Model
 
     public function dosens(): BelongsToMany
     {
-        return $this->belongsToMany(dosen::class, 'dosen_jabatans');
+        return $this->belongsToMany(Dosen::class, 'dosen_jabatans');
     }
 }

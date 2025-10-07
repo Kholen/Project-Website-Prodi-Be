@@ -5,19 +5,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Jalankan migrasinya.
-     */
     public function up(): void
     {
-        Schema::rename('dosen_kerjasama', 'kerjasama_prodi');
+        if (Schema::hasTable('dosen_kerjasama') && ! Schema::hasTable('kerjasama_prodi')) {
+            Schema::rename('dosen_kerjasama', 'kerjasama_prodi');
+        }
     }
 
-    /**
-     * Kembalikan perubahan jika dibatalkan.
-     */
     public function down(): void
     {
-        Schema::rename('kerjasama_prodi', 'dosen_kerjasama');
+        if (Schema::hasTable('kerjasama_prodi') && ! Schema::hasTable('dosen_kerjasama')) {
+            Schema::rename('kerjasama_prodi', 'dosen_kerjasama');
+        }
     }
 };
+

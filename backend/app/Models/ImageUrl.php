@@ -18,7 +18,7 @@ class ImageUrl extends Model
 
     public function dosens(): BelongsToMany
     {
-        return $this->belongsToMany(dosen::class, 'dosen_images', 'image_id', 'dosen_id');
+        return $this->belongsToMany(Dosen::class, 'dosen_images', 'image_id', 'dosen_id');
     }
 }
 

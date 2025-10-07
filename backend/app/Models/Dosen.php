@@ -17,12 +17,12 @@ class Dosen extends Model
 
     public function skills(): BelongsToMany
     {
-        return $this->belongsToMany(skill::class, 'dosen_skills');
+        return $this->belongsToMany(Skill::class, 'dosen_skills');
     }
 
     public function jabatans(): BelongsToMany
     {
-        return $this->belongsToMany(jabatan::class, 'dosen_jabatans');
+        return $this->belongsToMany(Jabatan::class, 'dosen_jabatans');
     }
 
     public function prodis(): BelongsToMany

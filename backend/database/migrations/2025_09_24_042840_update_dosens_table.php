@@ -1,39 +1,48 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        if (Schema::hasColumn('dosens', 'NUPTK')) {
-            DB::statement('ALTER TABLE dosens MODIFY NUPTK VARCHAR(255)');
-        }
+        $driver = Schema::getConnection()->getDriverName();
 
-        if (Schema::hasColumn('dosens', 'location_id') && ! Schema::hasColumn('dosens', 'kontak')) {
-            DB::statement('ALTER TABLE dosens CHANGE location_id kontak VARCHAR(255) NULL');
+        if ($driver === 'mysql') {
+            if (Schema::hasColumn('dosens', 'NUPTK')) {
+                DB::statement('ALTER TABLE dosens MODIFY NUPTK VARCHAR(255)');
+            }
+
+            if (Schema::hasColumn('dosens', 'location_id') && ! Schema::hasColumn('dosens', 'kontak')) {
+                DB::statement('ALTER TABLE dosens CHANGE location_id kontak VARCHAR(255) NULL');
+            }
         }
 
         if (! Schema::hasColumn('dosens', 'kontak')) {
-            DB::statement('ALTER TABLE dosens ADD COLUMN kontak VARCHAR(255) NULL');
+            Schema::table('dosens', function (Blueprint $table) {
+                $table->string('kontak')->nullable()->after('NUPTK');
+            });
         }
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        if (Schema::hasColumn('dosens', 'kontak') && ! Schema::hasColumn('dosens', 'location_id')) {
-            DB::statement('ALTER TABLE dosens CHANGE kontak location_id BIGINT');
+        $driver = Schema::getConnection()->getDriverName();
+
+        if (Schema::hasColumn('dosens', 'kontak')) {
+            if ($driver === 'mysql' && ! Schema::hasColumn('dosens', 'location_id')) {
+                DB::statement('ALTER TABLE dosens CHANGE kontak location_id BIGINT');
+            } else {
+                Schema::table('dosens', function (Blueprint $table) {
+                    $table->dropColumn('kontak');
+                });
+            }
         }
 
-        if (Schema::hasColumn('dosens', 'NUPTK')) {
+        if ($driver === 'mysql' && Schema::hasColumn('dosens', 'NUPTK')) {
             DB::statement('ALTER TABLE dosens MODIFY NUPTK INTEGER');
         }
     }

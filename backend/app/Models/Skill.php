@@ -12,6 +12,6 @@ class Skill extends Model
 
     public function dosens(): BelongsToMany
     {
-        return $this->belongsToMany(dosen::class, 'dosen_skills');
+        return $this->belongsToMany(Dosen::class, 'dosen_skills');
     }
 }

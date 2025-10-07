@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-// ▼▼▼ PERBAIKAN: Gunakan 'Dosen' dengan huruf kapital agar konsisten ▼▼▼
+// PERBAIKAN: Gunakan 'Dosen' dengan huruf kapital agar konsisten
 use App\Models\Dosen; 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -57,7 +57,7 @@ class DosenController extends Controller
                 Rule::unique('dosens')->ignore($id),
             ],
             'kontak'      => 'sometimes|nullable|string|max:20',
-            // ▼▼▼ PERBAIKAN: Tambahkan validasi untuk 'image_url' sebagai string URL ▼▼▼
+            // ??? PERBAIKAN: Tambahkan validasi untuk 'image_url' sebagai string URL ???
             'image_url'   => 'sometimes|nullable|url',
             
             'prodi_ids'   => 'sometimes|array',
@@ -71,7 +71,7 @@ class DosenController extends Controller
         $dosen = Dosen::findOrFail($id);
         $dosen->update($validatedData);
 
-        // ▼▼▼ PERBAIKAN: Logika baru yang benar untuk mengupdate URL gambar ▼▼▼
+        // ??? PERBAIKAN: Logika baru yang benar untuk mengupdate URL gambar ???
         if ($request->has('image_url')) {
             // Cari relasi gambar di tabel pivot 'dosen_images'
             $dosenImage = DB::table('dosen_images')->where('dosen_id', $dosen->id)->first();
@@ -99,8 +99,8 @@ class DosenController extends Controller
         // 5. Kembalikan response
         return response()->json([
             'message' => 'Data dosen berhasil diperbarui!',
-            // ▼▼▼ PERBAIKAN: Ganti 'imagesUrl' menjadi 'imageUrl' sesuai nama relasi di Model ▼▼▼
-            'data'    => $dosen->fresh()->with(['prodis', 'jabatans', 'skills', 'imageUrl']),
+            // ??? PERBAIKAN: Ganti 'imagesUrl' menjadi 'imageUrl' sesuai nama relasi di Model ???
+            'data'    => $dosen->fresh()->with(['prodis', 'jabatans', 'skills', 'imageUrl'])
         ], 200);
     }
     public function store(Request $request) 

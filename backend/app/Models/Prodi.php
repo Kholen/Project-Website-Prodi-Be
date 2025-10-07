@@ -15,6 +15,6 @@ class Prodi extends Model
 
     public function dosens(): BelongsToMany
     {
-        return $this->belongsToMany(dosen::class, 'dosen_prodis');
+        return $this->belongsToMany(Dosen::class, 'dosen_prodis');
     }
 }
