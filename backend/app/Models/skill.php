@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class skill extends Model
+class Skill extends Model
 {
     protected $table = 'skills';
 

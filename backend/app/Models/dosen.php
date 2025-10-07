@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class dosen extends Model
+class Dosen extends Model
 {
     protected $table = 'dosens';
 
     protected $fillable = [
         'nama',
         'NUPTK',
+        'kontak',
     ];
 
     public function skills(): BelongsToMany

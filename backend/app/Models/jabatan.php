@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class jabatan extends Model
+class Jabatan extends Model
 {
     protected $table = 'jabatans';
 
