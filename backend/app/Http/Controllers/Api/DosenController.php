@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-// PERBAIKAN: Gunakan 'Dosen' dengan huruf kapital agar konsisten
-use App\Models\Dosen; 
+use App\Models\Dosen;
+use App\Models\ImageUrl;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log; // Kita mungkin butuh ini untuk debugging nanti
+use Illuminate\Support\Arr;
 
 class DosenController extends Controller
 {
@@ -56,10 +55,9 @@ class DosenController extends Controller
                 'sometimes', 'required', 'string',
                 Rule::unique('dosens')->ignore($id),
             ],
-            'kontak'      => 'sometimes|nullable|string|max:20',
-            // ??? PERBAIKAN: Tambahkan validasi untuk 'image_url' sebagai string URL ???
+            'email'      => 'sometimes|nullable|string|max:255',
             'image_url'   => 'sometimes|nullable|url',
-            
+
             'prodi_ids'   => 'sometimes|array',
             'prodi_ids.*' => 'integer|exists:prodi,id',
             'jabatan_ids' => 'sometimes|array',
@@ -69,22 +67,28 @@ class DosenController extends Controller
         ]);
 
         $dosen = Dosen::findOrFail($id);
-        $dosen->update($validatedData);
 
-        // ??? PERBAIKAN: Logika baru yang benar untuk mengupdate URL gambar ???
+        $dosen->fill(Arr::only($validatedData, ['nama', 'NUPTK', 'email']));
+        $dosen->save();
+
         if ($request->has('image_url')) {
-            // Cari relasi gambar di tabel pivot 'dosen_images'
-            $dosenImage = DB::table('dosen_images')->where('dosen_id', $dosen->id)->first();
+            $imageRelation = $dosen->imageUrl();
+            $currentImage = $imageRelation->first();
 
-            if ($dosenImage) {
-                // Jika ada, update URL di tabel 'image_url' menggunakan image_id dari pivot
-                DB::table('image_url')
-                  ->where('id', $dosenImage->image_id)
-                  ->update(['url' => $request->image_url]);
+            if ($request->filled('image_url')) {
+                if ($currentImage) {
+                    $currentImage->update(['url' => $request->image_url]);
+                    $imageRelation->sync([$currentImage->getKey()]);
+                } else {
+                    $newImage = ImageUrl::create(['url' => $request->image_url]);
+                    $imageRelation->sync([$newImage->getKey()]);
+                }
+            } elseif ($currentImage) {
+                $imageRelation->detach($currentImage->getKey());
+                $currentImage->delete();
             }
         }
 
-        // --- Logika sync() Anda yang sudah benar ---
         if ($request->has('prodi_ids')) {
             $dosen->prodis()->sync($request->prodi_ids);
         }
@@ -94,13 +98,12 @@ class DosenController extends Controller
         if ($request->has('skill_ids')) {
             $dosen->skills()->sync($request->skill_ids);
         }
-        // --- Blok 'image_ids' yang salah sudah dihapus ---
 
-        // 5. Kembalikan response
+        $updatedDosen = $dosen->fresh(['prodis', 'jabatans', 'skills', 'imageUrl']);
+
         return response()->json([
             'message' => 'Data dosen berhasil diperbarui!',
-            // ??? PERBAIKAN: Ganti 'imagesUrl' menjadi 'imageUrl' sesuai nama relasi di Model ???
-            'data'    => $dosen->fresh()->with(['prodis', 'jabatans', 'skills', 'imageUrl'])
+            'data'    => $updatedDosen,
         ], 200);
     }
     public function store(Request $request) 
@@ -108,7 +111,7 @@ class DosenController extends Controller
         $validateData = $request->validate([
             'nama'        => 'required|string|max:255',
             'NUPTK'       => 'required|string|unique:dosens,NUPTK', // NUPTK harus unik
-            'kontak'      => 'nullable|string|max:20',
+            'email'      => 'nullable|string|max:20',
             'image_url'   => 'required|url', // URL gambar wajib ada saat membuat
             'prodi_ids'   => 'required|array|min:1',
             'jabatan_ids' => 'sometimes|array',
@@ -118,8 +121,11 @@ class DosenController extends Controller
         $dosen = Dosen::create([
             'nama' => $validateData['nama'],
             'NUPTK' => $validateData['NUPTK'],
-            'kontak' => $validateData['kontak'],
+            'email' => $validateData['email'] ?? null,
         ]);
+
+        $image = ImageUrl::create(['url' => $validateData['image_url']]);
+        $dosen->imageUrl()->sync([$image->getKey()]);
 
         if ($request->has('prodi_ids')) {
             $dosen->prodis()->attach($request->prodi_ids);
