@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\jabatan;
+use App\Models\Jabatan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

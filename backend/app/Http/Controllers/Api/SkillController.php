@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\skill;
+use App\Models\Skill;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

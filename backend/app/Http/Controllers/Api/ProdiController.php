@@ -13,7 +13,7 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        return response()->json(Prodi::All());
+        return response()->json(Prodi::all());
     }
 
     /**
