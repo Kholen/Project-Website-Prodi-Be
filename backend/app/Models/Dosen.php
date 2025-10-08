@@ -12,7 +12,7 @@ class Dosen extends Model
     protected $fillable = [
         'nama',
         'NUPTK',
-        'kontak',
+        'email',
     ];
 
     public function skills(): BelongsToMany

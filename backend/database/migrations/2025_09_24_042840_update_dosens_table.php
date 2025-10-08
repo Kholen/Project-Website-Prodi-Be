@@ -16,14 +16,14 @@ return new class extends Migration
                 DB::statement('ALTER TABLE dosens MODIFY NUPTK VARCHAR(255)');
             }
 
-            if (Schema::hasColumn('dosens', 'location_id') && ! Schema::hasColumn('dosens', 'kontak')) {
-                DB::statement('ALTER TABLE dosens CHANGE location_id kontak VARCHAR(255) NULL');
+            if (Schema::hasColumn('dosens', 'location_id') && ! Schema::hasColumn('dosens', 'email')) {
+                DB::statement('ALTER TABLE dosens CHANGE location_id email VARCHAR(255) NULL');
             }
         }
 
-        if (! Schema::hasColumn('dosens', 'kontak')) {
+        if (! Schema::hasColumn('dosens', 'email')) {
             Schema::table('dosens', function (Blueprint $table) {
-                $table->string('kontak')->nullable()->after('NUPTK');
+                $table->string('email')->nullable()->after('NUPTK');
             });
         }
     }
@@ -32,12 +32,12 @@ return new class extends Migration
     {
         $driver = Schema::getConnection()->getDriverName();
 
-        if (Schema::hasColumn('dosens', 'kontak')) {
+        if (Schema::hasColumn('dosens', 'email')) {
             if ($driver === 'mysql' && ! Schema::hasColumn('dosens', 'location_id')) {
-                DB::statement('ALTER TABLE dosens CHANGE kontak location_id BIGINT');
+                DB::statement('ALTER TABLE dosens CHANGE email location_id BIGINT');
             } else {
                 Schema::table('dosens', function (Blueprint $table) {
-                    $table->dropColumn('kontak');
+                    $table->dropColumn('email');
                 });
             }
         }

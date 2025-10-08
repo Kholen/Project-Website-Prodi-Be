@@ -16,9 +16,9 @@ return new class extends Migration
             DB::statement('ALTER TABLE dosens DROP COLUMN location_id');
         }
 
-        if (! Schema::hasColumn('dosens', 'kontak')) {
+        if (! Schema::hasColumn('dosens', 'email')) {
             Schema::table('dosens', function (Blueprint $table) {
-                $table->string('kontak')->nullable();
+                $table->string('email')->nullable();
             });
         }
     }

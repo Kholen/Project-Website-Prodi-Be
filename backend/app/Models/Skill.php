@@ -10,6 +10,10 @@ class Skill extends Model
 {
     protected $table = 'skills';
 
+    protected $fillable = [
+        'nama_skill',
+    ];
+
     public function dosens(): BelongsToMany
     {
         return $this->belongsToMany(Dosen::class, 'dosen_skills');

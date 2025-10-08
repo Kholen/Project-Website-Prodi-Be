@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dosens', function (Blueprint $table) {
-            $table->id();
-            $table->string('NUPTK');
-            $table->string('email')->nullable();
-            $table->string('nama', 50);
-            $table->timestamps();
+        Schema::table('dosens', function (Blueprint $table) {
+            $table->renameColumn("email","email");
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dosens');
+        Schema::table('dosens', function (Blueprint $table) {
+                $table->renameColumn("email","email");
+        });
     }
 };
