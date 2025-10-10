@@ -57,3 +57,6 @@ Route::get('/kerjasama', [KerjasamaProdiController::class, 'index'])->name('kerj
  * @method "GET"
  */
 Route::get('/riset', [RisetController::class, 'index'])->name('riset.index');
+Route::get('/riset/{id}', [RisetController::class, 'show'])->name('riset.show');
+Route::put('/riset/{id}', [RisetController::class, 'update'])->name('riset.update');
+Route::delete('/riset/{id}', [RisetController::class, 'destroy'])->name('riset.destroy');
