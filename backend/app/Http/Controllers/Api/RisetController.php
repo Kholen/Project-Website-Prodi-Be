@@ -8,6 +8,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Log;
+
 class RisetController extends Controller
 {
     /**
@@ -86,12 +88,10 @@ class RisetController extends Controller
         // 3. Kembalikan response sukses dengan data yang baru dibuat.
         return response()->json($riset, 201);
     }
-    public function destroy(Riset $riset): JsonResponse
+    public function destroy(Riset $id): JsonResponse
     {
-        // 1. Hapus record dari database.
-        $riset->delete();
+        $id->delete();
 
-        // 2. Kembalikan response sukses.
-        return response()->json(['message' => 'Data riset berhasil dihapus.'], 200);
+        return response()->json(['message' => 'Proses selesai.'], 200);
     }
 }
