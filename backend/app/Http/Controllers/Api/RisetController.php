@@ -67,6 +67,25 @@ class RisetController extends Controller
         // 3. Kembalikan data yang sudah diperbarui sebagai konfirmasi.
         return response()->json($id);
     }
+    public function store(Request $request): JsonResponse
+    {
+        // 1. Validasi data yang masuk.
+        $validatedData = $request->validate([
+            'nama_ketua'      => 'required|string|max:255',
+            'anggota_penulis' => 'nullable|string',
+            'judul'           => 'required|string|max:255',
+            'published_at'    => 'nullable|date',
+            'journal_name'    => 'nullable|string',
+            'url_riset'       => 'nullable|url',
+            'tahun'           => 'required|integer|digits:4',
+        ]);
+
+        // 2. Simpan data ke database.
+        $riset = Riset::create($validatedData);
+
+        // 3. Kembalikan response sukses dengan data yang baru dibuat.
+        return response()->json($riset, 201);
+    }
     public function destroy(Riset $riset): JsonResponse
     {
         // 1. Hapus record dari database.
