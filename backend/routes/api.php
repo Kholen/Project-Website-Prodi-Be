@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ProdiController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\RisetController;
 use App\Http\Controllers\Api\SkillController;
+use App\Http\Controllers\Api\BeritaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -61,3 +62,13 @@ Route::get('/riset/{id}', [RisetController::class, 'show'])->name('riset.show');
 Route::put('/riset/{id}', [RisetController::class, 'update'])->name('riset.update');
 Route::post('/riset', [RisetController::class, 'store'])->name('riset.store');
 Route::delete('/riset/{id}', [RisetController::class, 'destroy'])->name('riset.destroy');
+
+/**
+ * route "/berita"
+ * @method "GET"
+*/
+Route::get('/berita', [BeritaController::class, 'index']);
+Route::get('/berita/{berita:slug}', [BeritaController::class, 'show']);
+Route::post('/berita', [BeritaController::class, 'store']);
+Route::put('/berita/{berita:slug}', [BeritaController::class, 'update']);
+Route::delete('/berita/{berita:slug}', [BeritaController::class, 'destroy']);
