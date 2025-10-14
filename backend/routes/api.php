@@ -68,7 +68,7 @@ Route::delete('/riset/{id}', [RisetController::class, 'destroy'])->name('riset.d
  * @method "GET"
 */
 Route::get('/berita', [BeritaController::class, 'index']);
-Route::get('/berita/{berita:slug}', [BeritaController::class, 'show']);
+Route::get('/berita/{identifier}', [BeritaController::class, 'show']);
 Route::post('/berita', [BeritaController::class, 'store']);
-Route::put('/berita/{berita:slug}', [BeritaController::class, 'update']);
-Route::delete('/berita/{berita:slug}', [BeritaController::class, 'destroy']);
+Route::put('/berita/{berita}', [BeritaController::class, 'update']);
+Route::delete('/berita/{berita}', [BeritaController::class, 'destroy']);

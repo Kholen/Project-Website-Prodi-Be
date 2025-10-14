@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Berita;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
@@ -82,24 +83,73 @@ class BeritaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Berita $berita)
+    public function show($identifier)
     {
+         if (is_numeric($identifier)) {
+            // Jika ya, cari berita berdasarkan primary key (ID)
+            $berita = Berita::findOrFail($identifier);
+        } else {
+            // Jika bukan angka, anggap itu adalah Slug
+            // Cari berita berdasarkan kolom 'slug'
+            // 'firstOrFail()' adalah pengganti 'findOrFail()' saat menggunakan 'where'
+            $berita = Berita::where('slug', $identifier)->firstOrFail();
+        }
+
         return response()->json($berita);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Berita $berita)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'judul' => 'required|string|max:255',
+            'kepala_berita' => 'nullable|string',
+            'tubuh_berita' => 'required|string',
+            'ekor_berita' => 'nullable|string',
+            // Gambar tidak 'required' saat update
+            'gambar_berita' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        // Ambil semua data input kecuali gambar
+        $input = $request->except('gambar_berita');
+
+        // Cek jika ada file gambar baru yang diupload
+        if ($request->hasFile('gambar_berita')) {
+            // 1. Hapus gambar lama jika ada
+            if ($berita->gambar_berita && Storage::disk('public')->exists($berita->gambar_berita)) {
+                Storage::disk('public')->delete($berita->gambar_berita);
+            }
+
+            // 2. Upload gambar baru
+            $path = $request->file('gambar_berita')->store('berita_images', 'public');
+            $input['gambar_berita'] = $path;
+        }
+
+        // Update data di database
+        $berita->update($input);
+
+        return response()->json([
+            'message' => 'Data berita berhasil diperbarui!',
+            'data' => $berita
+        ], 200);
+    }
+    public function destroy($berita) {
+        $berita = Berita::findOrFail($berita);
+
+        // Hapus gambar dari storage jika ada
+        if ($berita->gambar_berita && Storage::disk('public')->exists($berita->gambar_berita)) {
+            Storage::disk('public')->delete($berita->gambar_berita);
+        }
+
+        // Hapus data berita dari database
+        $berita->delete();
+
+        return response()->json(['message' => 'Data berita berhasil dihapus!'], 200);
     }
 }

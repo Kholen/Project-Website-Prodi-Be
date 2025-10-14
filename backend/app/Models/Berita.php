@@ -21,17 +21,11 @@ class Berita extends Model
         'ekor_berita',
     ];
 
-    /**
-     * Get the options for generating the slug.
-     */
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('judul')
             ->saveSlugsTo('slug');
     }
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
+
 }
