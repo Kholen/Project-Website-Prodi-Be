@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Berita;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class BeritaController extends Controller
 {
@@ -23,59 +24,45 @@ class BeritaController extends Controller
      */
     public function store(Request $request)
     {
-        // Langkah 1: Validasi Input
         $validator = Validator::make($request->all(), [
-            'judul' => 'required|string|max:255|unique:berita,judul',
-            'gambar_berita' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi file gambar
+            'judul' => 'required|string|unique:berita,judul',
+            'gambar_berita' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'kepala_berita' => 'nullable|string',
             'tubuh_berita' => 'required|string',
             'ekor_berita' => 'nullable|string',
         ]);
 
-        // Jika validasi gagal, kembalikan response error
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        // Langkah 2: Proses Upload Gambar
         $gambarPath = null;
         if ($request->hasFile('gambar_berita')) {
-            // Dapatkan file gambar dari request
             $image = $request->file('gambar_berita');
-            
-            // Buat nama file yang unik berdasarkan waktu
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            
-            // Simpan file ke folder 'berita-images' di dalam disk 'public'
-            // dan langsung tangkap path yang dikembalikan oleh Laravel.
             $gambarPath = $image->storeAs('berita-images', $imageName, 'public');
         }
 
-        // Langkah 3: Buat dan Simpan Data
         try {
             $berita = Berita::create([
                 'judul' => $request->judul,
-                'slug' => Str::slug($request->judul), // Slug dibuat otomatis dari judul
                 'gambar_berita' => $gambarPath,
-                'kepala_berita' => $request->kepala_berita,
+                'kepala_berita' => $request->input('kepala_berita', ''),
                 'tubuh_berita' => $request->tubuh_berita,
-                'ekor_berita' => $request->ekor_berita,
+                'ekor_berita' => $request->input('ekor_berita', ''),
             ]);
 
-            // Langkah 4: Kembalikan Response Sukses
             return response()->json([
                 'success' => true,
                 'message' => 'Berita berhasil ditambahkan!',
                 'data' => $berita,
-            ], 201); // 201 Created
-
-        } catch (\Exception $e) {
-            // Jika terjadi error saat menyimpan ke database
+            ], 201);
+        } catch (\Throwable $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal menyimpan berita.',
-                'error' => $e->getMessage()
-            ], 500); // 500 Internal Server Error
+                'error' => $e->getMessage(),
+            ], 500);
         }
     }
 
@@ -90,16 +77,87 @@ class BeritaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Berita $berita)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'judul' => ['sometimes', 'required', 'string', Rule::unique('berita', 'judul')->ignore($berita->id)],
+            'gambar_berita' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'kepala_berita' => 'nullable|string',
+            'tubuh_berita' => 'sometimes|required|string',
+            'ekor_berita' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        try {
+            if ($request->has('judul')) {
+                $berita->judul = $request->judul;
+            }
+
+            if ($request->has('kepala_berita')) {
+                $berita->kepala_berita = $request->input('kepala_berita', '');
+            }
+
+            if ($request->has('tubuh_berita')) {
+                $berita->tubuh_berita = $request->tubuh_berita;
+            }
+
+            if ($request->has('ekor_berita')) {
+                $berita->ekor_berita = $request->input('ekor_berita', '');
+            }
+
+            if ($request->hasFile('gambar_berita')) {
+                $image = $request->file('gambar_berita');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $gambarPath = $image->storeAs('berita-images', $imageName, 'public');
+
+                if ($berita->gambar_berita) {
+                    Storage::disk('public')->delete($berita->gambar_berita);
+                }
+
+                $berita->gambar_berita = $gambarPath;
+            }
+
+            $berita->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Berita berhasil diperbarui!',
+                'data' => $berita->fresh(),
+            ], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal memperbarui berita.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Berita $berita)
     {
-        //
+        try {
+            if ($berita->gambar_berita) {
+                Storage::disk('public')->delete($berita->gambar_berita);
+            }
+
+            $berita->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Berita berhasil dihapus.',
+            ], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menghapus berita.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
