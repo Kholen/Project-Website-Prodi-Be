@@ -15,6 +15,7 @@ class Berita extends Model
 
     protected $fillable = [
         'judul',
+        'slug',
         'gambar_berita',
         'kepala_berita',
         'tubuh_berita',
@@ -28,7 +29,8 @@ class Berita extends Model
     {
         return SlugOptions::create()
             ->generateSlugsFrom('judul')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->slugsShouldBeNoLongerThan(255);
     }
     public function getRouteKeyName(): string
     {
