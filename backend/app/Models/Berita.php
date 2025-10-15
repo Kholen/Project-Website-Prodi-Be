@@ -22,9 +22,6 @@ class Berita extends Model
         'ekor_berita',
     ];
 
-    /**
-     * Get the options for generating the slug.
-     */
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
