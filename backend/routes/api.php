@@ -31,7 +31,7 @@ Route::post('/login', LoginController::class)->name('login');
 Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');
 Route::get('/dosen/{id}', [DosenController::class, 'show'])->name('dosen.show');
 Route::post('/dosen', [DosenController::class, 'store'])->name('dosen.store');
-Route::put('/dosen/{id}', [DosenController::class, 'update'])->name('dosen.update');
+Route::put('/dosen/{dosen}', [DosenController::class, 'update'])->name('dosen.update');
 Route::delete('/dosen/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy');
 
 Route::get('/jabatans', [JabatanController::class, 'index'])->name('jabatans.index');
