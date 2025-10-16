@@ -13,6 +13,7 @@ class Dosen extends Model
         'nama',
         'NUPTK',
         'email',
+        'image',
     ];
 
     public function skills(): BelongsToMany
@@ -30,9 +31,5 @@ class Dosen extends Model
         return $this->belongsToMany(Prodi::class, 'dosen_prodis');
     }
 
-    public function imageUrl(): BelongsToMany
-    {
-        return $this->belongsToMany(ImageUrl::class, 'dosen_images', 'dosen_id', 'image_id');
-    }
 }
 

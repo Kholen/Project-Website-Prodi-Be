@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Dosen;
-use App\Models\ImageUrl;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,7 +17,7 @@ class DosenController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $dosens = Dosen::with(['skills', 'jabatans', 'prodis', 'imageUrl'])
+            $dosens = Dosen::with(['skills', 'jabatans', 'prodis'])
                             ->orderBy('nama')
                             ->get();
             return response()->json($dosens);
@@ -33,7 +32,7 @@ class DosenController extends Controller
     public function show(int $id): JsonResponse
     {
         try {
-            $dosen = Dosen::with(['skills', 'jabatans', 'prodis', 'imageUrl'])
+            $dosen = Dosen::with(['skills', 'jabatans', 'prodis'])
                            ->findOrFail($id);
             return response()->json($dosen);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
@@ -56,7 +55,7 @@ class DosenController extends Controller
                 Rule::unique('dosens')->ignore($id),
             ],
             'email'      => 'sometimes|nullable|string|max:255',
-            'image_url'   => 'sometimes|nullable|url',
+            'image'   => 'sometimes|nullable|url',
 
             'prodi_ids'   => 'sometimes|array',
             'prodi_ids.*' => 'integer|exists:prodi,id',
@@ -68,26 +67,8 @@ class DosenController extends Controller
 
         $dosen = Dosen::findOrFail($id);
 
-        $dosen->fill(Arr::only($validatedData, ['nama', 'NUPTK', 'email']));
+        $dosen->fill(Arr::only($validatedData, ['nama', 'NUPTK', 'email', 'image']));
         $dosen->save();
-
-        if ($request->has('image_url')) {
-            $imageRelation = $dosen->imageUrl();
-            $currentImage = $imageRelation->first();
-
-            if ($request->filled('image_url')) {
-                if ($currentImage) {
-                    $currentImage->update(['url' => $request->image_url]);
-                    $imageRelation->sync([$currentImage->getKey()]);
-                } else {
-                    $newImage = ImageUrl::create(['url' => $request->image_url]);
-                    $imageRelation->sync([$newImage->getKey()]);
-                }
-            } elseif ($currentImage) {
-                $imageRelation->detach($currentImage->getKey());
-                $currentImage->delete();
-            }
-        }
 
         if ($request->has('prodi_ids')) {
             $dosen->prodis()->sync($request->prodi_ids);
@@ -99,7 +80,7 @@ class DosenController extends Controller
             $dosen->skills()->sync($request->skill_ids);
         }
 
-        $updatedDosen = $dosen->fresh(['prodis', 'jabatans', 'skills', 'imageUrl']);
+        $updatedDosen = $dosen->fresh(['prodis', 'jabatans', 'skills']);
 
         return response()->json([
             'message' => 'Data dosen berhasil diperbarui!',
@@ -112,7 +93,7 @@ class DosenController extends Controller
             'nama'        => 'required|string|max:255',
             'NUPTK'       => 'required|string|unique:dosens,NUPTK', // NUPTK harus unik
             'email'      => 'nullable|string|max:20',
-            'image_url'   => 'required|url', // URL gambar wajib ada saat membuat
+            'image'   => 'required|url', // URL gambar wajib ada saat membuat
             'prodi_ids'   => 'required|array|min:1',
             'jabatan_ids' => 'sometimes|array',
             'skill_ids'   => 'sometimes|array',
@@ -122,10 +103,8 @@ class DosenController extends Controller
             'nama' => $validateData['nama'],
             'NUPTK' => $validateData['NUPTK'],
             'email' => $validateData['email'] ?? null,
+            'image' => $validateData['image'],
         ]);
-
-        $image = ImageUrl::create(['url' => $validateData['image_url']]);
-        $dosen->imageUrl()->sync([$image->getKey()]);
 
         if ($request->has('prodi_ids')) {
             $dosen->prodis()->attach($request->prodi_ids);
@@ -137,7 +116,7 @@ class DosenController extends Controller
             $dosen->skills()->attach($request->skill_ids);
         }
 
-        return response()->json($dosen->load(['prodis', 'jabatans', 'skills', 'imageUrl']), 201);
+        return response()->json($dosen->load(['prodis', 'jabatans', 'skills']), 201);
     } 
      public function destroy(string $id)
     {

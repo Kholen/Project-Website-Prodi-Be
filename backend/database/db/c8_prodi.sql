@@ -11,7 +11,7 @@
  Target Server Version : 80043 (8.0.43)
  File Encoding         : 65001
 
- Date: 13/10/2025 10:40:36
+ Date: 16/10/2025 11:22:27
 */
 
 SET NAMES utf8mb4;
@@ -23,7 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `berita`;
 CREATE TABLE `berita`  (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `judul` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `gambar_berita` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `kepala_berita` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -33,11 +33,18 @@ CREATE TABLE `berita`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `berita_slug_unique`(`slug` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of berita
 -- ----------------------------
+INSERT INTO `berita` VALUES (1, 'yuri berak celana semalam', 'yuri-berak-celana-semalam', 'berita-images/1760424910.png', 'wevdkwvbKEWLHBVLIWEHVKJAW', 'VWEBEBFWRTBABAFDBFEBERBEBREBRBBERBEDBEARBEBBEBREBRBBREBERBR3BSBEFBFDBREBERB', 'EFABE BEFBEFBDFBDABDBDFBEAFBDDADBFDB', '2025-10-14 06:55:11', '2025-10-14 06:55:11');
+INSERT INTO `berita` VALUES (2, 'gfiwevkwvwd', 'gfiwevkwvwd', 'berita-images/1760425868.jpg', 'vdwvssdv', 'sdvsdvdsvsvsdsdvsdvsvsdvsdvdsvsdvdsvdsvdsvsvvssvsvsvsvsddvsdvsdvwvsdvsvv', 'vsvsvvsvsdvdvsdvv', '2025-10-14 07:11:08', '2025-10-14 07:11:08');
+INSERT INTO `berita` VALUES (3, 'errgredfbdfbfgn', 'errgredfbdfbfgn', 'berita-images/1760427167.png', 'nrgnfgnfnfgnn', 'fgnfnfnrgngfnfnfxgnfgncgf', 'nfgnfnfngnfgng', '2025-10-14 07:32:47', '2025-10-14 07:32:47');
+INSERT INTO `berita` VALUES (4, 'svdabaren5eu,tyf3dngrbfvdc', 'svdabaren5eutyf3dngrbfvdc', 'berita-images/1760427212.png', '\';lkjhgfdsa', '\';lkjhgrer5678p[poiuytrewacvbnklp09876trfgko98765rfvbnkiuyt', 'klo98765rfvbnmk', '2025-10-14 07:33:32', '2025-10-14 07:33:32');
+INSERT INTO `berita` VALUES (7, '1 Tahun Kabinet Prabowo, Jaksa Agung Bicara Peran dalam Reformasi Hukum', '1-tahun-kabinet-prabowo-jaksa-agung-bicara-peran-dalam-reformasi-hukum', 'berita-images/1760506421.jpeg', 'Jakarta - Jaksa Agung ST Burhanuddin bicara mengenai reformasi hukum di dalam Kejaksaan Agung (Kejagung) selama satu tahun pemerintahan Presiden Prabowo Subianto. Dia juga menjelaskan peran Kejagung dalam menegakkan hukum di Indonesia.', '\"Tentunya perannya seperti masyarakat ketahui, sebenarnya kalau kejaksaan itu perannya bukan hanya pidana khusus saja, bukan pemberantasan korupsi saja, tetapi ada peran-peran lain yang cukup penting juga dalam hal pidana umum, banyak ribuan perkara pidana umum yang bisa kita laksanakan, kita penuntutannya sesuai dengan harapan, banyak hal- yang menarik sebenarnya di pidana umum,\" ujar Burhanuddin kepada detikcom di Program Jejak Pradana yang tayang, Kamis (15/10/2025).\r\n\r\nBurhanuddin menyoroti fokus masyarakat terhadap Kejagung. Dia mengatakan kebanyakan masyarakat hanya fokus pada kasus-kasus korupsi, fokus Kejagung saat ini menangani kasus korupsi yang berhubungan dengan hajat hidup masyarakat.\r\n\r\n\"Banyak perkara-perkara kita yang kita ungkap, bukan kita tidak bicara lagi mungkin jutaan, tidak lagi bicara miliaran, tapi sudah bicara triliunan, tetapi bukan itu yang kami maksudkan, pengungkapan tetapi banyak perkara korupsi yang menarik perhatian masyarakat, yang ujung-ujungnya adalah berhubungan dengan hajat hidup masyarakat, itu yang kami utamakan,\" katanya.', 'Menurutnya, banyak perkara-perkara lama yang ingin diusut Kejagung. Dia juga memastikan tidak akan pilih-pilih dalam menindak seseorang.\r\n\"Jadi memang sebenarnya seharusnya sudah terbayang tetapi bagaimana pengungkapannya, karena banyak perkara-perkara yang dari awal, dari dahulu perkara ini begitu sebenarnya mil, mil, t, t, (miliaran dan triliunan), tapi belum kita sentuh, tidak tersentuh sebenarnya, kalau niatan kami sebenarnya siapapun ya kita akan sentuh,\" ucapnya.', '2025-10-15 05:33:41', '2025-10-15 06:08:59');
+INSERT INTO `berita` VALUES (10, '1abinet Prabowo, Jaksa Agung Bicara Peran dalam Reformasi Hukum\" selengkapnya https://news.detik.com/berita/d-8161469/1-tahun-kabinet-prabowo-jaksa-agung-bicara-peran-dalam-reformasi-hukum.  Download Apps Detikcom Sekarang https://apps.detik.com/detik/', '1abinet-prabowo-jaksa-agung-bicara-peran-dalam-reformasi-hukum-selengkapnya-httpsnewsdetikcomberitad-81614691-tahun-kabinet-prabowo-jaksa-agung-bicara-peran-dalam-reformasi-hukum-download-apps-detikcom-sekarang-httpsappsdetikcomdetik', 'berita-images/1760506998.jpg', 'cwjd sjknwd sdd', 'd s dsd', 'er sfd fdfed', '2025-10-15 05:43:18', '2025-10-15 05:43:18');
+INSERT INTO `berita` VALUES (11, 'Manual Entry Updated', 'manual-entry-updated', 'berita-images/1760507157.jpg', 'febfbdvsrfd cxoihlkjlkaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'Body updated', 'fddfsfd cfdv cx', '2025-10-15 05:45:58', '2025-10-15 09:44:40');
 
 -- ----------------------------
 -- Table structure for cache
@@ -68,57 +75,6 @@ CREATE TABLE `cache_locks`  (
 -- ----------------------------
 -- Records of cache_locks
 -- ----------------------------
-
--- ----------------------------
--- Table structure for dosen_images
--- ----------------------------
-DROP TABLE IF EXISTS `dosen_images`;
-CREATE TABLE `dosen_images`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `dosen_id` bigint UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `image_id` bigint UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `dosen_images_dosen_id_foreign`(`dosen_id` ASC) USING BTREE,
-  INDEX `dosen_images_image_id_foreign`(`image_id` ASC) USING BTREE,
-  CONSTRAINT `dosen_images_dosen_id_foreign` FOREIGN KEY (`dosen_id`) REFERENCES `dosens` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `dosen_images_image_id_foreign` FOREIGN KEY (`image_id`) REFERENCES `image_url` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of dosen_images
--- ----------------------------
-INSERT INTO `dosen_images` VALUES (1, 1, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 1);
-INSERT INTO `dosen_images` VALUES (2, 2, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 2);
-INSERT INTO `dosen_images` VALUES (3, 3, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 3);
-INSERT INTO `dosen_images` VALUES (4, 4, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 4);
-INSERT INTO `dosen_images` VALUES (5, 5, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 5);
-INSERT INTO `dosen_images` VALUES (6, 6, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 6);
-INSERT INTO `dosen_images` VALUES (7, 7, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 7);
-INSERT INTO `dosen_images` VALUES (8, 8, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 8);
-INSERT INTO `dosen_images` VALUES (9, 9, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 9);
-INSERT INTO `dosen_images` VALUES (10, 10, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 10);
-INSERT INTO `dosen_images` VALUES (11, 11, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 11);
-INSERT INTO `dosen_images` VALUES (12, 12, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 12);
-INSERT INTO `dosen_images` VALUES (13, 13, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 13);
-INSERT INTO `dosen_images` VALUES (15, 15, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 15);
-INSERT INTO `dosen_images` VALUES (16, 16, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 16);
-INSERT INTO `dosen_images` VALUES (17, 17, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 17);
-INSERT INTO `dosen_images` VALUES (19, 19, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 19);
-INSERT INTO `dosen_images` VALUES (20, 20, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 20);
-INSERT INTO `dosen_images` VALUES (21, 21, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 21);
-INSERT INTO `dosen_images` VALUES (22, 22, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 22);
-INSERT INTO `dosen_images` VALUES (23, 23, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 23);
-INSERT INTO `dosen_images` VALUES (24, 24, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 24);
-INSERT INTO `dosen_images` VALUES (25, 25, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 25);
-INSERT INTO `dosen_images` VALUES (26, 26, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 26);
-INSERT INTO `dosen_images` VALUES (27, 27, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 27);
-INSERT INTO `dosen_images` VALUES (28, 28, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 28);
-INSERT INTO `dosen_images` VALUES (29, 29, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 29);
-INSERT INTO `dosen_images` VALUES (30, 30, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 30);
-INSERT INTO `dosen_images` VALUES (31, 31, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 31);
-INSERT INTO `dosen_images` VALUES (32, 32, '2025-09-25 16:47:12', '2025-09-25 16:47:12', 32);
 
 -- ----------------------------
 -- Table structure for dosen_jabatans
@@ -313,6 +269,7 @@ CREATE TABLE `dosens`  (
   `NUPTK` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -321,36 +278,36 @@ CREATE TABLE `dosens`  (
 -- ----------------------------
 -- Records of dosens
 -- ----------------------------
-INSERT INTO `dosens` VALUES (1, '1734764665230310', 'adewina16@gmail.com', 'ADE WINARNI, S.T', '2025-09-25 16:47:12', '2025-10-08 03:47:06');
-INSERT INTO `dosens` VALUES (2, '1239771672130260', 'aggrysaputra@gmail.com', 'AGGRY SAPUTRA, S.T, M.T', '2025-09-25 16:47:12', '2025-10-08 03:51:12');
-INSERT INTO `dosens` VALUES (3, '7000000000000003', '081200000003', 'ALFAN FEDRIANTO, S.E., M.M', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (4, '8036768669130310', '081200000004', 'DANANDJAYA SAPUTRA, S.T., M.Kom', '2025-09-25 16:47:12', '2025-10-08 03:52:57');
-INSERT INTO `dosens` VALUES (5, '7000000000000005', '081200000005', 'DEDY JAUHARI, S.Kom., M.M', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (6, '7000000000000006', '081200000006', 'IMRON NUGRAHA, S.Pd., M.M', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (7, '7000000000000007', '081200000007', 'JAJANG NURJAMAN, S.T., M.Kom', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (8, '9847765666230400', '081200000008', 'LIZA SAFITRI, S.T., M.Kom', '2025-09-25 16:47:12', '2025-10-08 04:05:25');
-INSERT INTO `dosens` VALUES (9, '8142761662130260', 'mr.romdoni@gmail.com', 'MOCHAMMAD RIZKI ROMDONI, S.Kom., M.T', '2025-09-25 16:47:12', '2025-10-08 03:50:16');
-INSERT INTO `dosens` VALUES (10, '7000000000000010', '081200000010', 'NURUL SAEPUL, S.Pd., M.M.', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (11, '7000000000000011', '081200000011', 'YAFRI, S.Kom., M.M', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (12, '7936771672130330', '081200000012', 'ZULFACHMI, S,T, M.T', '2025-09-25 16:47:12', '2025-10-08 04:04:30');
-INSERT INTO `dosens` VALUES (13, '7757768669130330', '081200000013', 'ZULKIPLI, S.Pd., M.Pd', '2025-09-25 16:47:12', '2025-10-08 04:03:37');
-INSERT INTO `dosens` VALUES (15, '4146775676230150', '081200000015', 'AURORA ELSA S. FREDERICK, S.E., M.B.A', '2025-09-25 16:47:12', '2025-10-08 03:52:17');
-INSERT INTO `dosens` VALUES (16, '7000000000000016', '081200000016', 'DARMAWAN MEGA PERMANA, S.Pi., M.M', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (17, '6255765666237020', '081200000017', 'DWI NURUL HUDA, S.T., M.Kom', '2025-09-25 16:47:12', '2025-10-08 03:54:23');
-INSERT INTO `dosens` VALUES (19, '4448771672130270', '081200000019', 'HENDI SETIAWAN, S.Kom,M.Kom', '2025-09-25 16:47:12', '2025-10-08 03:53:43');
-INSERT INTO `dosens` VALUES (20, '7000000000000020', '081200000020', 'ILIVIA, S.Kom., M.M', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (21, '7000000000000021', '081200000021', 'LARASATI INDRIASTUTI, S.E., M.Ak', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (22, '7000000000000022', '081200000022', 'LEVA AFFRILLIANGGI FALIHAH, S.Kom., M.M', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (23, '9139759660131193', '081200000023', 'LISKEN SIRAIT, S.Sos., M.Pd', '2025-09-25 16:47:12', '2025-10-08 03:55:10');
-INSERT INTO `dosens` VALUES (24, '1439757658130150', '081200000024', 'MUHAMMAD FAIZAL, S.H., M.M', '2025-09-25 16:47:12', '2025-10-08 03:55:36');
-INSERT INTO `dosens` VALUES (25, '7000000000000025', '081200000025', 'Dr. MULYADI TAN, S.Kom., M.M', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (26, '1359771672230260', '081200000026', 'MUTHI\'AH AS-SA\'IDAH, S.Pd., M.Si', '2025-09-25 16:47:12', '2025-10-08 03:56:45');
-INSERT INTO `dosens` VALUES (27, '7000000000000027', '081200000027', 'N. SUPRIYADI, S.Kom., M.Kom', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (28, '2538761662230180', '081200000028', 'NANNY RARAS SETYONINGRUM, S.Si., M.Kom', '2025-09-25 16:47:12', '2025-10-08 04:02:45');
-INSERT INTO `dosens` VALUES (29, '7000000000000029', '081200000029', 'RIO ARI PRASETIO, S.Pd., M.M', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (30, '7000000000000030', '081200000030', 'SLAMET SANTOSO, M.T', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `dosens` VALUES (31, '9340775676230130', '081200000031', 'VITA RAHAYU, S.T., M.Kom', '2025-09-25 16:47:12', '2025-10-08 04:00:05');
-INSERT INTO `dosens` VALUES (32, '25366760661130200', '081200000032', 'WANHENDRA, S.Kom., M.S.I', '2025-09-25 16:47:12', '2025-10-08 04:00:46');
+INSERT INTO `dosens` VALUES (1, '1734764665230310', 'adewina16@gmail.com', 'ADE WINARNI, S.T', 'https://ameltrias.com/wp-content/uploads/2021/07/m-Jasa-Pas-Foto-Malang-Ameltrias-P-Ameltrias-683x1024.jpg', '2025-09-25 16:47:12', '2025-10-08 03:47:06');
+INSERT INTO `dosens` VALUES (2, '1239771672130260', 'aggrysaputra@gmail.com', 'AGGRY SAPUTRA, S.T, M.T', NULL, '2025-09-25 16:47:12', '2025-10-08 03:51:12');
+INSERT INTO `dosens` VALUES (3, '7000000000000003', '081200000003', 'ALFAN FEDRIANTO, S.E., M.M', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (4, '8036768669130310', '081200000004', 'DANANDJAYA SAPUTRA, S.T., M.Kom', NULL, '2025-09-25 16:47:12', '2025-10-08 03:52:57');
+INSERT INTO `dosens` VALUES (5, '7000000000000005', '081200000005', 'DEDY JAUHARI, S.Kom., M.M', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (6, '7000000000000006', '081200000006', 'IMRON NUGRAHA, S.Pd., M.M', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (7, '7000000000000007', '081200000007', 'JAJANG NURJAMAN, S.T., M.Kom', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (8, '9847765666230400', '081200000008', 'LIZA SAFITRI, S.T., M.Kom', NULL, '2025-09-25 16:47:12', '2025-10-08 04:05:25');
+INSERT INTO `dosens` VALUES (9, '8142761662130260', 'mr.romdoni@gmail.com', 'MOCHAMMAD RIZKI ROMDONI, S.Kom., M.T', NULL, '2025-09-25 16:47:12', '2025-10-08 03:50:16');
+INSERT INTO `dosens` VALUES (10, '7000000000000010', '081200000010', 'NURUL SAEPUL, S.Pd., M.M.', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (11, '7000000000000011', '081200000011', 'YAFRI, S.Kom., M.M', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (12, '7936771672130330', '081200000012', 'ZULFACHMI, S,T, M.T', NULL, '2025-09-25 16:47:12', '2025-10-08 04:04:30');
+INSERT INTO `dosens` VALUES (13, '7757768669130330', '081200000013', 'ZULKIPLI, S.Pd., M.Pd', NULL, '2025-09-25 16:47:12', '2025-10-08 04:03:37');
+INSERT INTO `dosens` VALUES (15, '4146775676230150', '081200000015', 'AURORA ELSA S. FREDERICK, S.E., M.B.A', NULL, '2025-09-25 16:47:12', '2025-10-08 03:52:17');
+INSERT INTO `dosens` VALUES (16, '7000000000000016', '081200000016', 'DARMAWAN MEGA PERMANA, S.Pi., M.M', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (17, '6255765666237020', '081200000017', 'DWI NURUL HUDA, S.T., M.Kom', 'https://ameltrias.com/wp-content/uploads/2021/07/m-Jasa-Pas-Foto-Malang-Ameltrias-P-Ameltrias-683x1024.jpg', '2025-09-25 16:47:12', '2025-10-08 03:54:23');
+INSERT INTO `dosens` VALUES (19, '4448771672130270', '081200000019', 'HENDI SETIAWAN, S.Kom,M.Kom', NULL, '2025-09-25 16:47:12', '2025-10-08 03:53:43');
+INSERT INTO `dosens` VALUES (20, '7000000000000020', '081200000020', 'ILIVIA, S.Kom., M.M', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (21, '7000000000000021', '081200000021', 'LARASATI INDRIASTUTI, S.E., M.Ak', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (22, '7000000000000022', '081200000022', 'LEVA AFFRILLIANGGI FALIHAH, S.Kom., M.M', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (23, '9139759660131193', '081200000023', 'LISKEN SIRAIT, S.Sos., M.Pd', NULL, '2025-09-25 16:47:12', '2025-10-08 03:55:10');
+INSERT INTO `dosens` VALUES (24, '1439757658130150', '081200000024', 'MUHAMMAD FAIZAL, S.H., M.M', NULL, '2025-09-25 16:47:12', '2025-10-08 03:55:36');
+INSERT INTO `dosens` VALUES (25, '7000000000000025', '081200000025', 'Dr. MULYADI TAN, S.Kom., M.M', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (26, '1359771672230260', '081200000026', 'MUTHI\'AH AS-SA\'IDAH, S.Pd., M.Si', NULL, '2025-09-25 16:47:12', '2025-10-08 03:56:45');
+INSERT INTO `dosens` VALUES (27, '7000000000000027', '081200000027', 'N. SUPRIYADI, S.Kom., M.Kom', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (28, '2538761662230180', '081200000028', 'NANNY RARAS SETYONINGRUM, S.Si., M.Kom', NULL, '2025-09-25 16:47:12', '2025-10-08 04:02:45');
+INSERT INTO `dosens` VALUES (29, '7000000000000029', '081200000029', 'RIO ARI PRASETIO, S.Pd., M.M', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (30, '7000000000000030', '081200000030', 'SLAMET SANTOSO, M.T', NULL, '2025-09-25 16:47:12', '2025-09-25 16:47:12');
+INSERT INTO `dosens` VALUES (31, '9340775676230130', '081200000031', 'VITA RAHAYU, S.T., M.Kom', NULL, '2025-09-25 16:47:12', '2025-10-08 04:00:05');
+INSERT INTO `dosens` VALUES (32, '25366760661130200', '081200000032', 'WANHENDRA, S.Kom., M.S.I', NULL, '2025-09-25 16:47:12', '2025-10-08 04:00:46');
 
 -- ----------------------------
 -- Table structure for failed_jobs
@@ -366,61 +323,11 @@ CREATE TABLE `failed_jobs`  (
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `failed_jobs_uuid_unique`(`uuid` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of failed_jobs
 -- ----------------------------
-
--- ----------------------------
--- Table structure for image_url
--- ----------------------------
-DROP TABLE IF EXISTS `image_url`;
-CREATE TABLE `image_url`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of image_url
--- ----------------------------
-INSERT INTO `image_url` VALUES (1, 'https://sttindonesia.ac.id/Files/fotodosen/adenew1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (2, 'https://sttindonesia.ac.id/Files/fotodosen/aggrynew1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (3, 'https://sttindonesia.ac.id/Files/fotodosen/alfan1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (4, 'https://gitlab.com/kevinperdana/foto-dosen/-/raw/main/danand1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (5, 'https://sttindonesia.ac.id/wp-content/uploads/2025/05/dedy1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (6, 'https://sttindonesia.ac.id/wp-content/uploads/2025/05/imron1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (7, 'https://sttindonesia.ac.id/Files/fotodosen/jajang1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (8, 'https://sttindonesia.ac.id/Files/fotodosen/liza1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (9, 'https://sttindonesia.ac.id/Files/fotodosen/rizki1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (10, 'https://sttindonesia.ac.id/wp-content/uploads/2025/05/nurulsaepul1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (11, 'https://sttindonesia.ac.id/wp-content/plugins/td-composer/assets/images/placeholders/thumb_01.jpg', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (12, 'https://sttindonesia.ac.id/Files/fotodosen/fahmi1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (13, 'https://sttindonesia.ac.id/Files/fotodosen/kipli1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (14, 'https://sttindonesia.ac.id/Files/fotodosen/abdul1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (15, 'https://sttindonesia.ac.id/Files/fotodosen/elsa1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (16, 'https://sttindonesia.ac.id/wp-content/uploads/2025/05/darmawan1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (17, 'https://sttindonesia.ac.id/Files/fotodosen/dwi1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (18, 'https://sttindonesia.ac.id/Files/fotodosen/elvi1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (19, 'https://sttindonesia.ac.id/Files/fotodosen/hendi1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (20, 'https://sttindonesia.ac.id/Files/fotodosen/ilivia1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (21, 'https://sttindonesia.ac.id/Files/fotodosen/larasati1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (22, 'https://sttindonesia.ac.id/wp-content/uploads/2025/05/leva2_1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (23, 'https://sttindonesia.ac.id/Files/fotodosen/lisken1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (24, 'https://sttindonesia.ac.id/Files/fotodosen/faizal1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (25, 'https://sttindonesia.ac.id/Files/fotodosen/mulyadi1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (26, 'https://sttindonesia.ac.id/Files/fotodosen/muthiah1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (27, 'https://sttindonesia.ac.id/Files/fotodosen/supri1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (28, 'https://sttindonesia.ac.id/Files/fotodosen/raras1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (29, 'https://sttindonesia.ac.id/Files/fotodosen/rio1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (30, 'https://sttindonesia.ac.id/wp-content/uploads/2025/05/slametsantoso1x1.jpeg', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (31, 'https://sttindonesia.ac.id/Files/fotodosen/vita1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (32, 'https://sttindonesia.ac.id/Files/fotodosen/wan1x1.png', '2025-09-25 16:47:12', '2025-09-25 16:47:12');
-INSERT INTO `image_url` VALUES (33, 'https://sttindonesia.ac.id/Files/fotodosen/adenew1x1.png', '2025-10-09 05:19:44', '2025-10-09 05:19:44');
-INSERT INTO `image_url` VALUES (34, 'https://sttindonesia.ac.id/Files/fotodosen/dwi1x1.png', '2025-10-10 02:14:53', '2025-10-10 02:22:07');
 
 -- ----------------------------
 -- Table structure for jabatans
@@ -548,7 +455,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of migrations
@@ -581,6 +488,10 @@ INSERT INTO `migrations` VALUES (27, '2025_10_06_040645_add_details_fields_to_ri
 INSERT INTO `migrations` VALUES (28, '2025_10_08_022939_rename_kontak_to_email_in_dosens_table', 11);
 INSERT INTO `migrations` VALUES (30, '2025_10_10_030103_create_berita_table', 12);
 INSERT INTO `migrations` VALUES (31, '2025_10_13_033902_add_slug_to_berita_table', 13);
+INSERT INTO `migrations` VALUES (32, '2025_10_15_042146_change_judul_varchar_to_text', 14);
+INSERT INTO `migrations` VALUES (33, '2025_10_16_035119_drop_dosen_images_table', 15);
+INSERT INTO `migrations` VALUES (34, '2025_10_16_035710_drop_image_url_table', 15);
+INSERT INTO `migrations` VALUES (35, '2025_10_16_035840_add_column_image_to_dosens_table', 16);
 
 -- ----------------------------
 -- Table structure for password_reset_tokens
@@ -687,6 +598,7 @@ CREATE TABLE `sessions`  (
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
+INSERT INTO `sessions` VALUES ('1HhnM3ilTy6rx3luf8om5qTYgrc3OVSoUfDzcyvc', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiTTg5Y1gxcmJ6R084bjlSSlNWYVdvdVpvb2pLRXRFZ1NrQW9VOGR5VSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1760587780);
 INSERT INTO `sessions` VALUES ('dwgke3R9Py3jFEa56IgMcyiaNmHivTNYzZnTmZKh', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidnhDTHEybGtkQjN3cGV2ek9MUnBvMVJlYWdLTDNKOTRuSlNDcjRvaSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1758790614);
 INSERT INTO `sessions` VALUES ('fnOXKlpwPLzwBvO00q2VVW36YmTAONfbhoVFQ3Q5', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiV0dPN25GNjNlTG9BZURpbGtEMmlWaHdOQjVMcW56NnVLeHJFcktqSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1758864741);
 
