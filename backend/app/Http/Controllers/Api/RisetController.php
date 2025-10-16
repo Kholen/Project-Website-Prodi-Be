@@ -2,24 +2,31 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Riset;
 use App\Http\Controllers\Controller;
+use App\Models\Riset;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\Log;
 
 class RisetController extends Controller
 {
     /**
      * Display a listing of the riset resources.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         try {
-            $riset = DB::table('riset')
-                ->select(
+            $allowedSortColumns = ['published_at', 'tahun', 'created_at', 'updated_at'];
+            $sortBy = $request->query('sort_by', 'published_at');
+
+            if (! in_array($sortBy, $allowedSortColumns, true)) {
+                $sortBy = 'published_at';
+            }
+
+            $direction = strtolower($request->query('direction', 'desc')) === 'asc' ? 'asc' : 'desc';
+
+            $riset = Riset::orderBy($sortBy, $direction)
+                ->orderBy('id', $direction)
+                ->get([
                     'id',
                     'nama_ketua',
                     'judul',
@@ -28,30 +35,26 @@ class RisetController extends Controller
                     'published_at',
                     'tahun',
                     'created_at',
-                    'updated_at'
-                )
-                ->orderByDesc('published_at')
-                ->orderByDesc('tahun')
-                ->orderBy('judul')
-                ->get();
+                    'updated_at',
+                ]);
 
             return response()->json($riset);
         } catch (\Throwable $exception) {
             return response()->json([
-                'error' => 'Gagal mengambil data riset.',
-                'detail' => $exception->getMessage(),
+                'success' => false,
+                'message' => 'Gagal mengambil data riset.',
+                'error' => $exception->getMessage(),
             ], 500);
         }
     }
+
     public function show(Riset $id): JsonResponse
     {
-        // Karena Route Model Binding, Laravel sudah otomatis mencari data Riset untuk Anda.
-        // Anda tinggal mengembalikannya sebagai JSON.
         return response()->json($id);
     }
+
     public function update(Request $request, Riset $id): JsonResponse
     {
-        // 1. Validasi data yang masuk. 'sometimes' berarti hanya divalidasi jika ada di request.
         $validatedData = $request->validate([
             'nama_ketua'      => 'required|string|max:255',
             'anggota_penulis' => 'nullable|string',
@@ -62,16 +65,13 @@ class RisetController extends Controller
             'tahun'           => 'required|integer|digits:4',
         ]);
 
-        // 2. Karena Route Model Binding, Laravel sudah mencari data riset untuk Anda ($riset).
-        // Kita tinggal meng-update-nya dengan data yang sudah divalidasi.
         $id->update($validatedData);
 
-        // 3. Kembalikan data yang sudah diperbarui sebagai konfirmasi.
         return response()->json($id);
     }
+
     public function store(Request $request): JsonResponse
     {
-        // 1. Validasi data yang masuk.
         $validatedData = $request->validate([
             'nama_ketua'      => 'required|string|max:255',
             'anggota_penulis' => 'nullable|string',
@@ -82,12 +82,11 @@ class RisetController extends Controller
             'tahun'           => 'required|integer|digits:4',
         ]);
 
-        // 2. Simpan data ke database.
         $riset = Riset::create($validatedData);
 
-        // 3. Kembalikan response sukses dengan data yang baru dibuat.
         return response()->json($riset, 201);
     }
+
     public function destroy(Riset $id): JsonResponse
     {
         $id->delete();
