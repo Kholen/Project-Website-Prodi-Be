@@ -27,7 +27,7 @@ class BeritaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'judul' => 'required|string|unique:berita,judul',
-            'gambar_berita' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gambar_berita' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
             'kepala_berita' => 'nullable|string',
             'tubuh_berita' => 'required|string',
             'ekor_berita' => 'nullable|string',
@@ -41,7 +41,7 @@ class BeritaController extends Controller
         if ($request->hasFile('gambar_berita')) {
             $image = $request->file('gambar_berita');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $gambarPath = $image->storeAs('berita-images', $imageName, 'public');
+            $gambarPath = $image->storeAs('images/berita', $imageName, 'public');
         }
 
         try {
@@ -112,7 +112,7 @@ class BeritaController extends Controller
             if ($request->hasFile('gambar_berita')) {
                 $image = $request->file('gambar_berita');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $gambarPath = $image->storeAs('berita-images', $imageName, 'public');
+                $gambarPath = $image->storeAs('image/berita', $imageName, 'public');
 
                 if ($berita->gambar_berita) {
                     Storage::disk('public')->delete($berita->gambar_berita);
