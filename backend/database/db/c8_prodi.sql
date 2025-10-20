@@ -650,3 +650,23 @@ INSERT INTO `users` VALUES (1, 'Yuri', 'YuriAja', 'yuri@gmail.com', NULL, '12345
 INSERT INTO `users` VALUES (2, 'Z', 'adminZ', 'adminZ@gmail.com', NULL, '$2y$12$IzumvomTDG7aWxx0cemhSeyryF.uW1Ky9lvSSshja9pBzC0tug9PG', NULL, '2025-09-24 07:46:58', '2025-09-24 07:46:58');
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Table structure for pengumuman
+-- ----------------------------
+DROP TABLE IF EXISTS `pengumuman`;
+CREATE TABLE `pengumuman`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `judul` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gambar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `kepala_pengumuman` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `isi_pengumuman` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ekor_pengumuman` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of pengumuman
+-- ----------------------------

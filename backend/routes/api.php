@@ -1,14 +1,15 @@
 <?php
 
+use App\Http\Controllers\Api\BeritaController;
 use App\Http\Controllers\Api\DosenController;
 use App\Http\Controllers\Api\JabatanController;
 use App\Http\Controllers\Api\KerjasamaProdiController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\PengumumanController;
 use App\Http\Controllers\Api\ProdiController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\RisetController;
 use App\Http\Controllers\Api\SkillController;
-use App\Http\Controllers\Api\BeritaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -72,3 +73,13 @@ Route::get('/berita/{berita:slug}', [BeritaController::class, 'show']);
 Route::post('/berita', [BeritaController::class, 'store']);
 Route::put('/berita/{berita:slug}', [BeritaController::class, 'update']);
 Route::delete('/berita/{berita:slug}', [BeritaController::class, 'destroy']);
+
+/**
+ * route "/pengumuman"
+ * @method "GET"
+*/
+Route::get('/pengumuman', [PengumumanController::class, 'index']);
+Route::get('/pengumuman/{pengumuman}', [PengumumanController::class, 'show']);
+Route::post('/pengumuman', [PengumumanController::class, 'store']);
+Route::put('/pengumuman/{pengumuman}', [PengumumanController::class, 'update']);
+Route::delete('/pengumuman/{pengumuman}', [PengumumanController::class, 'destroy']);
