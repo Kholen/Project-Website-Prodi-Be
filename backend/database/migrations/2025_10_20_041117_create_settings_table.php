@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('visi');
-            $table->string('misi');
+            $table->text('visi');
+            $table->text('misi');
             $table->string('default_logo');
             $table->string('white_logo');
             $table->string('instagram_url')->nullable();
