@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\BeritaController;
 use App\Http\Controllers\Api\DosenController;
 use App\Http\Controllers\Api\JabatanController;
 use App\Http\Controllers\Api\KerjasamaProdiController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\PengumumanController;
 use App\Http\Controllers\Api\ProdiController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\RisetController;
@@ -80,3 +82,9 @@ Route::delete('/berita/{berita:slug}', [BeritaController::class, 'destroy']);
 */
 Route::get('/settings', [SettingsController::class, 'index']);
 Route::post('/settings', [SettingsController::class, 'update']);
+ 
+Route::get('/pengumuman', [PengumumanController::class, 'index']);
+Route::get('/pengumuman/{pengumuman}', [PengumumanController::class, 'show']);
+Route::post('/pengumuman', [PengumumanController::class, 'store']);
+Route::put('/pengumuman/{pengumuman}', [PengumumanController::class, 'update']);
+Route::delete('/pengumuman/{pengumuman}', [PengumumanController::class, 'destroy']);
