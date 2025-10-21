@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\RisetController;
 use App\Http\Controllers\Api\SkillController;
 use App\Http\Controllers\Api\BeritaController;
+use App\Http\Controllers\Api\SettingsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -72,3 +73,10 @@ Route::get('/berita/{berita:slug}', [BeritaController::class, 'show']);
 Route::post('/berita', [BeritaController::class, 'store']);
 Route::put('/berita/{berita:slug}', [BeritaController::class, 'update']);
 Route::delete('/berita/{berita:slug}', [BeritaController::class, 'destroy']);
+
+/**
+ * route "/settings"
+ * @method "GET"
+*/
+Route::get('/settings', [SettingsController::class, 'index']);
+Route::post('/settings', [SettingsController::class, 'update']);
