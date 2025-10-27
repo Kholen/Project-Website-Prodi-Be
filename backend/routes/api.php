@@ -10,7 +10,6 @@ use App\Http\Controllers\Api\ProdiController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\RisetController;
 use App\Http\Controllers\Api\SkillController;
-use App\Http\Controllers\Api\BeritaController;
 use App\Http\Controllers\Api\SettingsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,7 +38,15 @@ Route::delete('/dosen/{id}', [DosenController::class, 'destroy'])->name('dosen.d
 
 Route::get('/jabatans', [JabatanController::class, 'index'])->name('jabatans.index');
 Route::get('/skills', [SkillController::class, 'index'])->name('skills.index');
+
+/**
+ * route "/prodi"
+ * @method "GET"
+ */
 Route::get('/prodi', [ProdiController::class, 'index'])->name('prodi.index');
+Route::get('/prodi/{prodi}', [ProdiController::class, 'show'])->name('prodi.show');
+Route::put('/prodi/{prodi}', [ProdiController::class, 'update'])->name('prodi.show');
+
 
 
 /**
